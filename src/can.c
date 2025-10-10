@@ -121,7 +121,7 @@ void can_set_bitrate(enum can_bitrate bitrate)
         	prescaler = 300;
             break;
         case CAN_BITRATE_50K:
-        	prescaler = 120;
+        	prescaler = 180;  // 33.333k baud (was 120 for 50k)
             break;
         case CAN_BITRATE_100K:
             prescaler = 60;

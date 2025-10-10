@@ -8,7 +8,7 @@ This repository contains sources for the slcan CANable firmware, based off of th
 - `C` - Close channel 
 - `S0` - Set bitrate to 10k
 - `S1` - Set bitrate to 20k
-- `S2` - Set bitrate to 50k
+- `S2` - Set bitrate to 33.333k
 - `S3` - Set bitrate to 100k
 - `S4` - Set bitrate to 125k
 - `S5` - Set bitrate to 250k

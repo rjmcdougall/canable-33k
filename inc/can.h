@@ -4,7 +4,7 @@
 enum can_bitrate {
     CAN_BITRATE_10K = 0,
     CAN_BITRATE_20K,
-    CAN_BITRATE_50K,
+    CAN_BITRATE_50K,  // Note: S2 command now uses 33.333k baud instead of 50k
     CAN_BITRATE_100K,
     CAN_BITRATE_125K,
     CAN_BITRATE_250K,

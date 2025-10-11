@@ -1,6 +1,14 @@
-# CANable Firmware
+# CANable Firmware - 33.333k Baud Modification
 
-This repository contains sources for the slcan CANable firmware, based off of the CANtact firwmare. This firmware may still compile and run on the CANtact.
+This is a fork of the original [CANable firmware](https://github.com/normaldotcom/canable-fw) with a modification to change the S2 command from 50k to 33.333k baud rate.
+
+## Modification Details
+
+- **S2 Command**: Now sets CAN bus to 33.333k baud (previously 50k)
+- **Technical**: Changed prescaler from 120 to 180 for CAN_BITRATE_50K
+- **Calculation**: 48MHz ÷ (180 × 8 time quanta) = 33,333 bps
+
+This repository contains sources for the slcan CANable firmware, based off of the CANtact firmware. This firmware may still compile and run on the CANtact.
 
 ## Supported Commands
 
@@ -31,15 +39,30 @@ This firmware currently does not provide any ACK/NACK feedback for serial comman
 
 ## Building
 
-Firmware builds with GCC. Specifically, you will need gcc-arm-none-eabi, which
-is packaged for Windows, OS X, and Linux on
-[Launchpad](https://launchpad.net/gcc-arm-embedded/+download). Download for your
-system and add the `bin` folder to your PATH.
+Firmware builds with GCC. On macOS, you can install the ARM toolchain using Homebrew:
 
-Your Linux distribution may also have a prebuilt package for `arm-none-eabi-gcc`, check your distro's repositories to see if a build exists.
+```bash
+brew install --cask gcc-arm-embedded
+```
+
+For other systems, download gcc-arm-none-eabi from [Launchpad](https://launchpad.net/gcc-arm-embedded/+download) and add the `bin` folder to your PATH.
+
+### Compile the modified firmware:
+
+```bash
+git clone https://github.com/rjmcdougall/canable-33k.git
+cd canable-33k
+make
+```
 
 - If you have a CANable device, you can compile using `make`. 
 - If you have a CANtact or other device with external oscillator, you can compile using `make INTERNAL_OSCILLATOR=1`
+
+The built firmware will be in `build/canable-*.bin`
+
+### Pre-built Binaries
+
+Pre-built firmware binaries are available in the [Releases](https://github.com/rjmcdougall/canable-33k/releases) section.
 
 ## Flashing with the Bootloader
 

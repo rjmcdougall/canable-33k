@@ -141,6 +141,9 @@ void can_set_bitrate(enum can_bitrate bitrate)
         case CAN_BITRATE_1000K:
             prescaler = 6;
             break;
+        case CAN_BITRATE_83_3K:
+            prescaler = 72;  // 83.33k baud (48MHz / (72 * 8 TQ) = 83.333k)
+            break;
         case CAN_BITRATE_INVALID:
         default:
             prescaler = 6;

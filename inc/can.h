@@ -11,6 +11,7 @@ enum can_bitrate {
     CAN_BITRATE_500K,
     CAN_BITRATE_750K,
     CAN_BITRATE_1000K,
+    CAN_BITRATE_83_3K,  // S9 command - could be changed to 33.333k if desired
 
 	CAN_BITRATE_INVALID,
 };

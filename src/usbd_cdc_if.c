@@ -15,6 +15,17 @@ extern USBD_HandleTypeDef hUsbDeviceFS;
 static uint8_t slcan_str[SLCAN_MTU];
 static uint8_t slcan_str_index = 0;
 
+// CDC Line Coding (default: 115200, 8N1)
+static USBD_CDC_LineCodingTypeDef LineCoding = {
+  115200, // bitrate
+  0x00,   // format: 1 stop bit
+  0x00,   // paritytype: none
+  0x08    // datatype: 8 bits
+};
+
+// CDC Control Line State
+static uint16_t ControlLineState = 0;
+
 
 // Private function prototypes
 static int8_t CDC_Init_FS(void);
@@ -94,20 +105,30 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
   /* 6      | bDataBits  |   1   | Number Data bits (5, 6, 7, 8 or 16).          */
   /*******************************************************************************/
     case CDC_SET_LINE_CODING:
-    break;
+      // Store the line coding from host
+      LineCoding.bitrate = (uint32_t)(pbuf[0] | (pbuf[1] << 8) | (pbuf[2] << 16) | (pbuf[3] << 24));
+      LineCoding.format = pbuf[4];
+      LineCoding.paritytype = pbuf[5];
+      LineCoding.datatype = pbuf[6];
+      break;
 
     case CDC_GET_LINE_CODING:
-	pbuf[0] = (uint8_t)(115200);
-	pbuf[1] = (uint8_t)(115200 >> 8);
-	pbuf[2] = (uint8_t)(115200 >> 16);
-	pbuf[3] = (uint8_t)(115200 >> 24);
-	pbuf[4] = 0; // stop bits (1)
-	pbuf[5] = 0; // parity (none)
-	pbuf[6] = 8; // number of bits (8)
-	break;
+      // Return current line coding to host
+      pbuf[0] = (uint8_t)(LineCoding.bitrate);
+      pbuf[1] = (uint8_t)(LineCoding.bitrate >> 8);
+      pbuf[2] = (uint8_t)(LineCoding.bitrate >> 16);
+      pbuf[3] = (uint8_t)(LineCoding.bitrate >> 24);
+      pbuf[4] = LineCoding.format;     // stop bits
+      pbuf[5] = LineCoding.paritytype; // parity
+      pbuf[6] = LineCoding.datatype;   // data bits
+      break;
 
     case CDC_SET_CONTROL_LINE_STATE:
-    break;
+      // Store control line state (DTR/RTS)
+      ControlLineState = (uint16_t)(pbuf[0] | (pbuf[1] << 8));
+      // Bit 0: DTR (Data Terminal Ready)
+      // Bit 1: RTS (Request To Send)
+      break;
 
     case CDC_SEND_BREAK:
     break;

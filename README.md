@@ -4,9 +4,16 @@ This is a fork of the original [CANable firmware](https://github.com/normaldotco
 
 ## Modification Details
 
+### Bitrate Changes:
 - **S2 Command**: Now sets CAN bus to 33.333k baud (previously 50k)
+- **S9 Command**: Added 83.33k baud option
 - **Technical**: Changed prescaler from 120 to 180 for CAN_BITRATE_50K
 - **Calculation**: 48MHz ÷ (180 × 8 time quanta) = 33,333 bps
+
+### Parser Improvements:
+- **Better Extended ID Handling**: Ported improved logic from CANable 2.0
+- **Cleaner Code Structure**: More organized command parsing
+- **Improved Error Handling**: Better bounds checking and validation
 
 This repository contains sources for the slcan CANable firmware, based off of the CANtact firmware. This firmware may still compile and run on the CANtact.
 
@@ -23,6 +30,7 @@ This repository contains sources for the slcan CANable firmware, based off of th
 - `S6` - Set bitrate to 500k
 - `S7` - Set bitrate to 750k
 - `S8` - Set bitrate to 1M
+- `S9` - Set bitrate to 83.33k
 - `M0` - Set mode to normal mode (default)
 - `M1` - Set mode to silent mode
 - `A0` - Disable automatic retransmission 

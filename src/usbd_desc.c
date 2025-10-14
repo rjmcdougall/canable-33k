@@ -7,7 +7,8 @@
 #define USBD_LANGID_STRING		1033
 #define USBD_MANUFACTURER_STRING	"Protofusion Labs"
 #define USBD_PID_FS			0x60c4
-#define USBD_PRODUCT_STRING_FS		"CANable" " " GIT_VERSION " " GIT_REMOTE
+#define USBD_PRODUCT_STRING_FS		"CANable Proto" " " GIT_VERSION " " GIT_REMOTE
+//#define USBD_PRODUCT_STRING_FS		"CANable 33k" " " GIT_VERSION " " GIT_REMOTE
 #define USBD_CONFIGURATION_STRING_FS    "CDC Config"
 #define USBD_INTERFACE_STRING_FS	"CDC Interface"
 
@@ -61,9 +62,9 @@ __ALIGN_BEGIN uint8_t USBD_FS_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
   USB_DESC_TYPE_DEVICE,       /*bDescriptorType*/
   0x00,                       /*bcdUSB */
   0x02,
-  0x02,                       /*bDeviceClass*/
-  0x02,                       /*bDeviceSubClass*/
-  0x00,                       /*bDeviceProtocol*/
+  0xEF,                       /*bDeviceClass: Miscellaneous Device Class*/
+  0x02,                       /*bDeviceSubClass: Common Class*/
+  0x01,                       /*bDeviceProtocol: Interface Association Descriptor*/
   USB_MAX_EP0_SIZE,           /*bMaxPacketSize*/
   LOBYTE(USBD_VID),           /*idVendor*/
   HIBYTE(USBD_VID),           /*idVendor*/

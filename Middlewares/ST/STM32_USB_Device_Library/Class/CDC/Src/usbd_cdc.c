@@ -278,7 +278,19 @@ __ALIGN_BEGIN uint8_t USBD_CDC_CfgFSDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIGN_END =
   0x01,   /* bConfigurationValue: Configuration value */
   0x00,   /* iConfiguration: Index of string descriptor describing the configuration */
   0x80,   /* bmAttributes: bus powered */
-  0xFA,   /* MaxPower 500 mA */
+  0x32,   /* MaxPower 100 mA */
+
+  /*---------------------------------------------------------------------------*/
+  
+  /*Interface Association Descriptor*/
+  0x08,   /* bLength: IAD size */
+  USB_DESC_TYPE_IAD,              /* bDescriptorType: IAD */
+  0x00,   /* bFirstInterface: First interface number */
+  0x02,   /* bInterfaceCount: Number of interfaces */
+  0x02,   /* bFunctionClass: Communication Interface Class */
+  0x02,   /* bFunctionSubClass: Abstract Control Model */
+  0x01,   /* bFunctionProtocol: Common AT commands */
+  0x00,   /* iFunction: Index of string descriptor */
 
   /*---------------------------------------------------------------------------*/
 
@@ -371,7 +383,17 @@ __ALIGN_BEGIN uint8_t USBD_CDC_OtherSpeedCfgDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIG
   0x01,   /* bConfigurationValue: */
   0x04,   /* iConfiguration: */
   0x80,   /* bmAttributes: bus powered */
-  0xFA,   /* MaxPower 500 mA */
+  0x32,   /* MaxPower 100 mA */
+  
+  /*Interface Association Descriptor*/
+  0x08,   /* bLength: IAD size */
+  USB_DESC_TYPE_IAD,              /* bDescriptorType: IAD */
+  0x00,   /* bFirstInterface: First interface number */
+  0x02,   /* bInterfaceCount: Number of interfaces */
+  0x02,   /* bFunctionClass: Communication Interface Class */
+  0x02,   /* bFunctionSubClass: Abstract Control Model */
+  0x01,   /* bFunctionProtocol: Common AT commands */
+  0x00,   /* iFunction: Index of string descriptor */
 
   /*Interface Descriptor */
   0x09,   /* bLength: Interface Descriptor size */
